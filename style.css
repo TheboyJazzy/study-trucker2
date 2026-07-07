@@ -1,0 +1,232 @@
+/* style.css - Study Tracker */
+* {
+    box-sizing: border-box;
+    font-family: 'Figtree', system-ui, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #0e0e0e;
+    color: #ffffff;
+    padding: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    font-size: clamp(20px, 4vw, 28px);
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+    color: #4caf50;
+}
+
+/* Week Card */
+.week-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    background: linear-gradient(145deg, #141414, #1b1b1b);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.week-card h2 {
+    text-align: center;
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #81c784;
+}
+
+/* Progress */
+.progress-text {
+    text-align: center;
+    font-size: clamp(14px, 3vw, 16px);
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #81c784);
+    transition: width 0.5s ease-in-out;
+    border-radius: 10px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px 8px;
+    font-size: clamp(13px, 3vw, 15px);
+    border-bottom: 1px solid #2a2a2a;
+    vertical-align: middle;
+}
+
+/* Column widths */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 25%;
+    text-align: left;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 55%;
+    text-align: left;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 20%;
+    text-align: center;
+}
+
+/* Header style */
+th {
+    font-size: clamp(12px, 2.5vw, 14px);
+    text-transform: uppercase;
+    opacity: 0.7;
+    padding-bottom: 10px;
+    color: #81c784;
+}
+
+/* Remove border from last row */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #4caf50;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+input[type="checkbox"]:hover {
+    transform: scale(1.1);
+}
+
+/* Loading animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    margin: 20px auto;
+    border: 5px solid #2a2a2a;
+    border-top: 5px solid #4caf50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Error message */
+.error-message {
+    background: #ffebee;
+    color: #d32f2f;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+    border-left: 4px solid #d32f2f;
+}
+
+/* Network status */
+.network-status {
+    background: #ff9800;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #388e3c;
+}
+
+button:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* 📱 SMALL PHONES (≤ 360px) */
+@media (max-width: 360px) {
+    body {
+        padding: 12px;
+    }
+    
+    .week-card {
+        padding: 16px;
+    }
+
+    td, th {
+        padding: 8px 4px;
+    }
+    
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* 📱 TABLETS (≥ 768px) */
+@media (min-width: 768px) {
+    body {
+        padding: 30px;
+    }
+
+    .week-card {
+        max-width: 650px;
+    }
+}
+
+/* 💻 LAPTOPS & DESKTOPS (≥ 1024px) */
+@media (min-width: 1024px) {
+    .week-card {
+        max-width: 700px;
+    }
+    
+    th, td {
+        padding: 14px 10px;
+    }
+}

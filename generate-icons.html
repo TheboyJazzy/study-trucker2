@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Icons</title>
+    <style>
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        .icon-set { display: flex; flex-wrap: wrap; gap: 20px; }
+        .icon { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Generate Study Tracker Icons</h1>
+    
+    <button onclick="generateIcons()">Generate All Icons</button>
+    <button onclick="downloadAll()">Download All Icons</button>
+    
+    <div id="icons" class="icon-set"></div>
+    
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const icons = {};
+        
+        function generateIcons() {
+            const container = document.getElementById('icons');
+            container.innerHTML = '';
+            
+            sizes.forEach(size => {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                
+                // Background
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(0, 0, size, size);
+                
+                // Book icon
+                ctx.fillStyle = '#4caf50';
+                const padding = size * 0.2;
+                const bookWidth = size - (padding * 2);
+                const bookHeight = bookWidth * 0.7;
+                
+                // Book cover
+                ctx.fillRect(padding, padding, bookWidth, bookHeight);
+                
+                // Book pages
+                ctx.fillStyle = '#81c784';
+                const pageOffset = size * 0.05;
+                ctx.fillRect(padding + pageOffset, padding, bookWidth - pageOffset, bookHeight);
+                
+                // Book lines (pages)
+                ctx.fillStyle = '#e8f5e9';
+                const lineCount = 5;
+                const lineSpacing = bookHeight / (lineCount + 1);
+                for (let i = 1; i <= lineCount; i++) {
+                    const y = padding + (lineSpacing * i);
+                    ctx.fillRect(padding + pageOffset + 10, y - 2, bookWidth - pageOffset - 20, 3);
+                }
+                
+                // Checkmark for completed
+                if (size >= 128) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.arc(size * 0.8, size * 0.2, size * 0.1, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.fillStyle = '#4caf50';
+                    ctx.font = `bold ${size * 0.15}px Arial`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('✓', size * 0.8, size * 0.2);
+                }
+                
+                const icon = document.createElement('div');
+                icon.className = 'icon';
+                icon.innerHTML = `
+                    <canvas id="icon-${size}"></canvas>
+                    <div>${size}x${size}</div>
+                    <button onclick="downloadIcon(${size})">Download</button>
+                `;
+                container.appendChild(icon);
+                
+                // Replace with our canvas
+                document.getElementById(`icon-${size}`).getContext('2d').drawImage(canvas, 0, 0);
+                
+                // Store the canvas
+                icons[size] = canvas;
+            });
+        }
+        
+        function downloadIcon(size) {
+            const canvas = icons[size];
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        function downloadAll() {
+            sizes.forEach(size => {
+                if (icons[size]) {
+                    const link = document.createElement('a');
+                    link.download = `icon-${size}.png`;
+                    link.href = icons[size].toDataURL('image/png');
+                    link.click();
+                }
+            });
+            alert('All icons downloaded! Save them in an "icons" folder.');
+        }
+        
+        // Auto-generate on load
+        window.onload = generateIcons;
+    </script>
+    
+    <div style="margin-top: 30px; padding: 20px; background: #f0f0f0; border-radius: 10px;">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Click "Generate All Icons"</li>
+            <li>Click "Download All Icons"</li>
+            <li>Create folder: <code>C:\wamp64\www\study-tracker\icons\</code></li>
+            <li>Save all downloaded PNG files in that folder</li>
+            <li>Refresh your study tracker</li>
+        </ol>
+    </div>
+</body>
+</html>

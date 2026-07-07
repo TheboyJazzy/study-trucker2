@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python & SQL Study Tracker</title>
+    <meta name="description" content="Track your 4-week Python & SQL study progress">
+    <meta name="theme-color" content="#0f172a">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>📚 Python & SQL Study Tracker</h1>
+            <p class="app-subtitle">4-Week Intensive Learning Program</p>
+        </header>
+
+        <!-- Network Status -->
+        <div id="network-status" class="network-status"></div>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Overall Progress -->
+            <div class="overall-progress-card">
+                <div class="overall-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Progress</span>
+                        <span class="stat-value" id="overall-percentage">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Days Completed</span>
+                        <span class="stat-value" id="completed-days">0/24</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Weeks</span>
+                        <span class="stat-value">4</span>
+                    </div>
+                </div>
+                <div class="overall-progress-bar">
+                    <div class="overall-progress-fill" id="overall-progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Weeks Container -->
+            <div id="weeks-container" class="weeks-container">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading-indicator">
+                <div class="spinner"></div>
+                <p>Loading your study progress...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <div class="error-content">
+                    <h3>Connection Error</h3>
+                    <p id="error-text">Unable to load study data. Please check your connection.</p>
+                    <div class="error-actions">
+                        <button id="retry-btn" class="btn btn-primary">🔄 Retry</button>
+                        <button id="offline-btn" class="btn btn-secondary">📱 Use Offline</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-info">
+                <p>Progress auto-saves locally and syncs when online</p>
+                <p class="footer-meta" id="last-sync">Last sync: Never</p>
+            </div>
+            <div class="footer-actions">
+                <button id="sync-btn" class="btn-sync" style="display: none;">
+                    <span class="sync-icon">🔄</span>
+                    <span class="sync-text">Sync</span>
+                    <span class="sync-count" id="sync-count"></span>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker error:', err));
+            });
+        }
+    </script>
+
+    <!-- Main Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>
